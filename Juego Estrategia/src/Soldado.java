@@ -10,11 +10,11 @@ public class Soldado extends Personaje implements Bebible{
 	}
 
 	@Override
-	public void atacar(Personaje a) {
-		if(this.puedeAtacar(a)) {
-			a.recibirAtaque(this);
+	public void atacar(Personaje otroPersonaje) {
+		if(this.puedeAtacar(otroPersonaje)) {
+			otroPersonaje.recibirAtaque(this);
 			this.energia--;
-			System.out.println("Soldado infligio un daño de "+this.getDaño()+" puntos!");
+			System.out.println("Soldado infligio un danio de "+this.getDanio()+" puntos!");
 		}
 		else {
 			System.out.println("SIN ENERGIAS PARA ATACAR.");
@@ -23,15 +23,15 @@ public class Soldado extends Personaje implements Bebible{
 		
 	}
 	@Override
-	public void recibirAtaque(Personaje a) {
-		this.setSalud(this.getSalud()-a.getDaño());
+	public void recibirAtaque(Personaje otroPersonaje) {
+		this.setSalud(this.getSalud()-otroPersonaje.getDanio());
 		
 	}
 	
 	@Override
-	public boolean puedeAtacar(Personaje a) {
+	public boolean puedeAtacar(Personaje otroPersonaje) {
 		
-		return (a.estaVivo()&&this.energia>0 && this.estaVivo() && this.distancia(a)>=Soldado.distanciaAtaque && this.distancia(a)<= Soldado.distanciaAtaque);
+		return (otroPersonaje.estaVivo()&&this.energia>0 && this.estaVivo() && this.distancia(otroPersonaje)>=Soldado.distanciaAtaque && this.distancia(otroPersonaje)<= Soldado.distanciaAtaque);
 			 
 	}
 	

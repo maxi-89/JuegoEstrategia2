@@ -1,46 +1,99 @@
-
+/**
+ * titulo:juego de Estrategia
+ * crea personajes del juego de estrategia y 
+ * tiene metodos abstractos atacar recibirAtaque puede Atacar
+ * @author Maximiliano Rodriguez
+ * @version 01/10/2019
+ * 
+ * 
+ * */
 public abstract class Personaje {
 
 	private Punto posicion;
 	private double salud;
-	private int daño;
-	
-	public Personaje(Punto posicion, double salud, int daño) {
-		this.daño = daño;
+	private int danio;
+	/**
+	 * constructor clase personaje
+	 * @param Posicion:da la ubicacion del personaje
+	 * @param salud: valor de la salud del personage
+	 * @param danio: valor del poder de daÃ±o del personaje
+	 * 
+	 * **/
+	public Personaje(Punto posicion, double salud, int danio) {
+		this.danio = danio;
 		this.posicion = posicion;
 		this.salud = salud;
 	}
+	/**
+	 * Metodo abstracto atacar
+	 * @param Personaje otroPersonaje: define personaje a atacar
+	 * @see metodo recibir ataque
+	 * **/
+	public abstract void atacar(Personaje otroPersonaje);
+	/**
+	 * Metodo abstracto atacar
+	 * @param Personaje otroPersonaje: define personaje que recibe el ataque
+	 * @see metodo atacar
+	 * **/
+	public abstract void recibirAtaque(Personaje otroPersonaje);
+	/**
+	 * Metodo abstracto puedeAtacar
+	 * @param Personaje otroPersonaje: define si puede atacar al objetivo
+	 * @see metodo recibir ataque
+	 * 
+	 * **/
+	public abstract boolean puedeAtacar(Personaje otroPersonaje);
 	
-	public abstract void atacar(Personaje a);
-	public abstract void recibirAtaque(Personaje a);
-	public abstract boolean puedeAtacar(Personaje a);
 	
+	/**
+	 * SETTER PROTECTED
+	 * Establece el nivel de salud
+	 * **/
 	protected void setSalud(double salud) {
 		this.salud = salud;
 	}
+	/**
+	 * GETTER PROTECTED
+	 * @return el nivel de salud
+	 * **/
 
 	protected double getSalud() {
 		return salud;
 	}
-
-	protected int getDaño() {
-		return daño;
+	/**
+	 * GETTER PROTECTED
+	 * @return el poder de daÃ±o
+	 * **/
+	protected int getDanio() {
+		return danio;
 	}
-
+/**
+ * Metodo boolean estaVivo
+ * @return true si salud es mayor a 0
+ * 
+ * **/
 	public boolean estaVivo() {
 		return (this.salud>0);
 	}
-	
+	/**
+	 * metodo moverse
+	 * cambia la posicion del personaje
+	 * @param Punto posicion- le da al metodo la posicion a la que debe moverse
+	 * **/
 	public void moverse(Punto posicion) {
 		this.posicion = posicion;
 	}
+	/**
+	 * metodo distancia
+	 * @return la distancia entre un personaje y otro
+	 * **/
 	
-	public double distancia(Personaje a) {
-		return this.posicion.distancia(a.posicion);
+	public double distancia(Personaje otroPersonaje) {
+		return this.posicion.distancia(otroPersonaje.posicion);
 	}
 
 	@Override
 	public String toString() {
-		return "INFO Personaje: ".toString().concat("POSICION ").concat(String.valueOf(this.posicion)).concat("\t").concat("SALUD ").concat(String.valueOf(this.salud)).concat("\t").concat("DAÑO ").concat(String.valueOf(this.daño)).concat("\t\t");
+		return "INFO Personaje: ".toString().concat("POSICION ").concat(String.valueOf(this.posicion)).concat("\t").concat("SALUD ").concat(String.valueOf(this.salud)).concat("\t").concat("DANIO ").concat(String.valueOf(this.danio)).concat("\t\t");
 	}
 }

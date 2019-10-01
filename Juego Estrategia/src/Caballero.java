@@ -10,11 +10,11 @@ public class Caballero extends Personaje{
 	}
 
 	@Override
-	public void atacar(Personaje a) {
-		if(this.puedeAtacar(a)) {
-			a.recibirAtaque(this);
+	public void atacar(Personaje otroPersonaje) {
+		if(this.puedeAtacar(otroPersonaje)) {
+			otroPersonaje.recibirAtaque(this);
 			caballo.setFuria(caballo.getFuria()+1);
-			System.out.println("Caballero infligio un daño de "+this.getDaño()+" puntos!");
+			System.out.println("Caballero infligio un danio de "+this.getDanio()+" puntos!");
 		}
 		else {
 			System.out.println("EL CABALLO SE A VUELTO REBELDE!");
@@ -28,15 +28,15 @@ public class Caballero extends Personaje{
 	}
 	
 	@Override
-	public void recibirAtaque(Personaje a) {
-		this.setSalud(this.getSalud()-a.getDaño());
+	public void recibirAtaque(Personaje otroPersonaje) {
+		this.setSalud(this.getSalud()-otroPersonaje.getDanio());
 		
 	}
 	
 	@Override
-	public boolean puedeAtacar(Personaje a) {
+	public boolean puedeAtacar(Personaje otroPersonaje) {
 		
-		return (a.estaVivo()&&this.estadoLoco(caballo)==false && this.estaVivo() && this.distancia(a)>=Caballero.distanciaMinimaAtaque && this.distancia(a)<= Caballero.distanciaMaximaAtaque);
+		return (otroPersonaje.estaVivo()&&this.estadoLoco(caballo)==false && this.estaVivo() && this.distancia(otroPersonaje)>=Caballero.distanciaMinimaAtaque && this.distancia(otroPersonaje)<= Caballero.distanciaMaximaAtaque);
 			 
 	}
 	

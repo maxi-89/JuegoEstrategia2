@@ -11,11 +11,11 @@ public class Arquero extends Personaje{
 	}
 
 	@Override
-	public void atacar(Personaje a) {
-		if(this.puedeAtacar(a)) {
+	public void atacar(Personaje otroPersonaje) {
+		if(this.puedeAtacar(otroPersonaje)) {
 			this.flechas --;
-			a.recibirAtaque(this);
-			System.out.println("Arquero infligio un daño de "+this.getDaño()+" puntos!");
+			otroPersonaje.recibirAtaque(this);
+			System.out.println("Arquero infligio un danio de "+this.getDanio()+" puntos!");
 		}else if(this.flechas == 0){
 			System.out.println("SIN FLECHAS.");
 		}
@@ -25,15 +25,15 @@ public class Arquero extends Personaje{
 		
 	}
 	@Override
-	public void recibirAtaque(Personaje a) {
-		this.setSalud(this.getSalud()-a.getDaño());
+	public void recibirAtaque(Personaje otroPersonaje) {
+		this.setSalud(this.getSalud()-otroPersonaje.getDanio());
 		
 	}
 	
 	@Override
-	public boolean puedeAtacar(Personaje a) {
+	public boolean puedeAtacar(Personaje otroPersonaje) {
 		
-		return (this.flechas > 0 && this.estaVivo() && this.distancia(a)>=Arquero.distanciaMinimaAtaque && this.distancia(a)<= Arquero.distanciaMaximaAtaque);
+		return (this.flechas > 0 && this.estaVivo() && this.distancia(otroPersonaje)>=Arquero.distanciaMinimaAtaque && this.distancia(otroPersonaje)<= Arquero.distanciaMaximaAtaque);
 			 
 	}
 	

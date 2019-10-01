@@ -9,10 +9,10 @@ public class Lancero extends Personaje{
 	}
 
 	@Override
-	public void atacar(Personaje a) {
-		if(this.puedeAtacar(a)) {
-			a.recibirAtaque(this);
-			System.out.println("Lancero infligio un daño de "+this.getDaño()+" puntos!");
+	public void atacar(Personaje otroPersonaje) {
+		if(this.puedeAtacar(otroPersonaje)) {
+			otroPersonaje.recibirAtaque(this);
+			System.out.println("Lancero infligio un danio de "+this.getDanio()+" puntos!");
 		}
 		else {
 			System.out.println("FUERA DE RANGO O MUERTO.");
@@ -20,15 +20,15 @@ public class Lancero extends Personaje{
 		
 	}
 	@Override
-	public void recibirAtaque(Personaje a) {
-		this.setSalud(this.getSalud()-a.getDaño());
+	public void recibirAtaque(Personaje otroPersonaje) {
+		this.setSalud(this.getSalud()-otroPersonaje.getDanio());
 		
 	}
 	
 	@Override
-	public boolean puedeAtacar(Personaje a) {
+	public boolean puedeAtacar(Personaje otroPersonaje) {
 		
-		return (a.estaVivo()&&this.estaVivo() && this.distancia(a)>=Lancero.distanciaMinimaAtaque && this.distancia(a)<= Lancero.distanciaMaximaAtaque);
+		return (otroPersonaje.estaVivo()&&this.estaVivo() && this.distancia(otroPersonaje)>=Lancero.distanciaMinimaAtaque && this.distancia(otroPersonaje)<= Lancero.distanciaMaximaAtaque);
 			 
 	}
 	
