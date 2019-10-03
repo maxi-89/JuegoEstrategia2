@@ -45,8 +45,10 @@ public class TestJuego {
 		System.out.println();
 		caballerito.atacar(caballerazo);
 		System.out.println();
+		System.out.println(caballerazo);
 		System.out.println("prueba de try catch en soldado");
 		soldadito.atacar(caballerazo);
+		System.out.println(caballerazo);
 		System.out.println();
 		soldadito.atacar(soldadon);
 		System.out.println();

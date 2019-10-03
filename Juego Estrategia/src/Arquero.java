@@ -16,11 +16,6 @@ public class Arquero extends Personaje{
 			this.flechas --;
 			otroPersonaje.recibirAtaque(this);
 			System.out.println("Arquero infligio un danio de "+this.getDanio()+" puntos!");
-		}else if(this.flechas == 0){
-			System.out.println("SIN FLECHAS.");
-		}
-		else {
-			System.out.println("fUERA DE RANGO O MUERTO.");
 		}
 		
 	}
@@ -33,7 +28,35 @@ public class Arquero extends Personaje{
 	@Override
 	public boolean puedeAtacar(Personaje otroPersonaje) {
 		
-		return (this.flechas > 0 && this.estaVivo() && this.distancia(otroPersonaje)>=Arquero.distanciaMinimaAtaque && this.distancia(otroPersonaje)<= Arquero.distanciaMaximaAtaque);
+		boolean puedeAtacar=true;
+		try {
+			if (otroPersonaje.estaVivo()==false) {
+				throw new MiException(001);
+				
+			}
+			if (this.flechas<=0) {
+				throw new MiException (007);
+				
+			}
+			if (this.estaVivo()==false) {
+				throw new MiException (005);
+				
+			}
+			if (this.distancia(otroPersonaje)<Arquero.distanciaMinimaAtaque && this.distancia(otroPersonaje)> Arquero.distanciaMaximaAtaque) {
+				throw new MiException (002);
+				
+			}
+			
+		}
+		catch (MiException fail) {
+			System.out.println(fail.getMensaje());
+			puedeAtacar=false;
+		}
+			return puedeAtacar; 
+		
+	//	return (this.flechas > 0 && this.estaVivo() &&
+	//this.distancia(otroPersonaje)>=Arquero.distanciaMinimaAtaque && 
+			//this.distancia(otroPersonaje)<= Arquero.distanciaMaximaAtaque);
 			 
 	}
 	
@@ -41,6 +64,30 @@ public class Arquero extends Personaje{
 		this.flechas+=6;
 	}
 	
+	
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + flechas;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Arquero other = (Arquero) obj;
+		if (flechas != other.flechas)
+			return false;
+		return true;
+	}
+
 	@Override
 	public String toString() {
 		return super.toString().concat("TIPO ARQUERO").concat("\t").concat("Flechas ").concat(String.valueOf(this.flechas));

@@ -36,7 +36,13 @@ public class Soldado extends Personaje implements Bebible{
 		this.setSalud(this.getSalud()-otroPersonaje.getDanio());
 		
 	}
-	
+	/**
+	 * Metodo puede atacar
+	 * @param Personaje otroPersonaje
+	 * @return si puedeAtacar es true o false
+	 * manejo de excepsiones para saber si puede o no puede atacar
+	 *
+	 **/
 	@Override
 	public boolean puedeAtacar(Personaje otroPersonaje) {
 		boolean puedeAtacar=true;
@@ -65,13 +71,49 @@ public class Soldado extends Personaje implements Bebible{
 		}
 			return puedeAtacar; 
 	}
-	
+	/**
+	 * metodo tomar pocion
+	 * devuelve el nivel de energia a 100
+	 * **/
 	@Override
 	public void tomarPocion() {
 		
 		this.energia=100;
 	}
 	
+	/**
+	 * metodo hashcode
+	 * @return result
+	 * **/
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + energia;
+		return result;
+	}
+	/**
+	 * metodo equals 
+	 * @return si es igual o no
+	 * **/
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Soldado other = (Soldado) obj;
+		if (energia != other.energia)
+			return false;
+		return true;
+	}
+	/**
+	 * Metodo toString
+	 * 
+	 * **/
 	@Override
 	public String toString() {
 		return super.toString().concat("TIPO SOLDADO").concat("\t").concat("ENERGIA ").concat(String.valueOf(this.energia));

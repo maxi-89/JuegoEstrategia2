@@ -91,7 +91,40 @@ public abstract class Personaje {
 	public double distancia(Personaje otroPersonaje) {
 		return this.posicion.distancia(otroPersonaje.posicion);
 	}
+	
+	
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + danio;
+		result = prime * result + ((posicion == null) ? 0 : posicion.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(salud);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Personaje other = (Personaje) obj;
+		if (danio != other.danio)
+			return false;
+		if (posicion == null) {
+			if (other.posicion != null)
+				return false;
+		} else if (!posicion.equals(other.posicion))
+			return false;
+		if (Double.doubleToLongBits(salud) != Double.doubleToLongBits(other.salud))
+			return false;
+		return true;
+	}
 	@Override
 	public String toString() {
 		return "INFO Personaje: ".toString().concat("POSICION ").concat(String.valueOf(this.posicion)).concat("\t").concat("SALUD ").concat(String.valueOf(this.salud)).concat("\t").concat("DANIO ").concat(String.valueOf(this.danio)).concat("\t\t");

@@ -36,7 +36,10 @@ public class MiException extends Exception {
 			System.out.println("Un personaje muerto ya no puede atacar");
 			break;
 		case 006:
-			System.out.println("No posee energia suficiente para atacar, toma posion");
+			System.out.println("No posee energia suficiente para atacar, puede tomar posion");
+			break;
+		case 007:
+			System.out.println("El arquero no posee flechas, puede recargar flechas ");
 			break;
 	
 		}
