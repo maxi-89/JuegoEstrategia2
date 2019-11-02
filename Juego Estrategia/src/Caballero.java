@@ -10,15 +10,11 @@ public class Caballero extends Personaje{
 	}
 
 	@Override
-	public void atacar(Personaje otroPersonaje) {
+	public void atacar(Personaje otroPersonaje) throws PersonajeAtacadoMuertoException, PersonajeMuertoNoAtacaException, FueraRangoException, CaballoRebeldeException {
 		if(this.puedeAtacar(otroPersonaje)) {
 			otroPersonaje.recibirAtaque(this);
 			caballo.setFuria(caballo.getFuria()+1);
 			System.out.println("Caballero infligio un danio de "+this.getDanio()+" puntos!");
-		}
-		else {
-			System.out.println("EL CABALLO SE A VUELTO REBELDE!");
-			caballo.tomarPocion();
 		}
 		
 	}
@@ -34,9 +30,25 @@ public class Caballero extends Personaje{
 	}
 	
 	@Override
-	public boolean puedeAtacar(Personaje otroPersonaje) {
+	public boolean puedeAtacar(Personaje otroPersonaje) throws PersonajeAtacadoMuertoException, PersonajeMuertoNoAtacaException, FueraRangoException, CaballoRebeldeException {
+		boolean puedeAtacar=false;
 		
-		return (otroPersonaje.estaVivo()&&this.estadoLoco(caballo)==false && this.estaVivo() && this.distancia(otroPersonaje)>=Caballero.distanciaMinimaAtaque && this.distancia(otroPersonaje)<= Caballero.distanciaMaximaAtaque);
+		if (otroPersonaje.estaVivo()) {
+			throw new PersonajeAtacadoMuertoException("El personaje a atacar esta muerto");
+		}
+		else if(this.estadoLoco(caballo)==false ){
+			throw new CaballoRebeldeException("El caballo esta rebelde, debe tomar posion");
+		}
+		else if(this.estaVivo()) {
+			throw new PersonajeMuertoNoAtacaException ("Un personaje muerto ya no puede atacar");
+		}
+		else if(this.distancia(otroPersonaje)>=Caballero.distanciaMinimaAtaque && this.distancia(otroPersonaje)<= Caballero.distanciaMaximaAtaque){
+			throw new FueraRangoException ("El personaje a atacar esta fuera de rango");
+		}
+		else {
+			puedeAtacar=true;
+		}
+		return puedeAtacar;
 			 
 	}
 	

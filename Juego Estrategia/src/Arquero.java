@@ -11,7 +11,7 @@ public class Arquero extends Personaje{
 	}
 
 	@Override
-	public void atacar(Personaje otroPersonaje) {
+	public void atacar(Personaje otroPersonaje) throws PersonajeAtacadoMuertoException, NoPoseeFlechasException, PersonajeMuertoNoAtacaException, FueraRangoException {
 		if(this.puedeAtacar(otroPersonaje)) {
 			this.flechas --;
 			otroPersonaje.recibirAtaque(this);
@@ -26,32 +26,32 @@ public class Arquero extends Personaje{
 	}
 	
 	@Override
-	public boolean puedeAtacar(Personaje otroPersonaje) {
+	public boolean puedeAtacar(Personaje otroPersonaje) throws PersonajeAtacadoMuertoException, NoPoseeFlechasException, PersonajeMuertoNoAtacaException, FueraRangoException {
 		
-		boolean puedeAtacar=true;
-		try {
+		boolean puedeAtacar=false;
+		
 			if (otroPersonaje.estaVivo()==false) {
-				throw new MiException(001);
+				throw new PersonajeAtacadoMuertoException("El personaje a atacar esta muerto");
 				
 			}
-			if (this.flechas<=0) {
-				throw new MiException (007);
+			else if (this.flechas<=0) {
+				throw new NoPoseeFlechasException ("No tienes flechas, debes recargar");
 				
 			}
-			if (this.estaVivo()==false) {
-				throw new MiException (005);
+			else if (this.estaVivo()==false) {
+				throw new PersonajeMuertoNoAtacaException ("Un personaje muerto ya no puede atacar");
 				
 			}
-			if (this.distancia(otroPersonaje)<Arquero.distanciaMinimaAtaque && this.distancia(otroPersonaje)> Arquero.distanciaMaximaAtaque) {
-				throw new MiException (002);
+			else if (this.distancia(otroPersonaje)<Arquero.distanciaMinimaAtaque && this.distancia(otroPersonaje)> Arquero.distanciaMaximaAtaque) {
+				throw new FueraRangoException ("El personaje a atacar esta fuera de rango");
 				
 			}
-			
-		}
-		catch (MiException fail) {
-			System.out.println(fail.getMensaje());
-			puedeAtacar=false;
-		}
+			else{
+				puedeAtacar=true;
+				
+			}
+		
+	
 			return puedeAtacar; 
 		
 	//	return (this.flechas > 0 && this.estaVivo() &&

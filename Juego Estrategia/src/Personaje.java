@@ -27,9 +27,15 @@ public abstract class Personaje {
 	/**
 	 * Metodo abstracto atacar
 	 * @param Personaje otroPersonaje: define personaje a atacar
+	 * @throws FueraRangoException 
+	 * @throws PersonajeMuertoNoAtacaException 
+	 * @throws NoPoseeFlechasException 
+	 * @throws PersonajeAtacadoMuertoException 
+	 * @throws CaballoRebeldeException 
+	 * @throws NoTieneEnergiaException 
 	 * @see metodo recibir ataque
 	 * **/
-	public abstract void atacar(Personaje otroPersonaje);
+	public abstract void atacar(Personaje otroPersonaje) throws PersonajeAtacadoMuertoException, NoPoseeFlechasException, PersonajeMuertoNoAtacaException, FueraRangoException, CaballoRebeldeException, NoTieneEnergiaException;
 	/**
 	 * Metodo abstracto atacar
 	 * @param Personaje otroPersonaje: define personaje que recibe el ataque
@@ -39,10 +45,16 @@ public abstract class Personaje {
 	/**
 	 * Metodo abstracto puedeAtacar
 	 * @param Personaje otroPersonaje: define si puede atacar al objetivo
+	 * @throws PersonajeAtacadoMuertoException 
+	 * @throws NoPoseeFlechasException 
+	 * @throws PersonajeMuertoNoAtacaException 
+	 * @throws FueraRangoException 
+	 * @throws CaballoRebeldeException 
+	 * @throws NoTieneEnergiaException 
 	 * @see metodo recibir ataque
 	 * 
 	 * **/
-	public abstract boolean puedeAtacar(Personaje otroPersonaje);
+	public abstract boolean puedeAtacar(Personaje otroPersonaje) throws PersonajeAtacadoMuertoException, NoPoseeFlechasException, PersonajeMuertoNoAtacaException, FueraRangoException, CaballoRebeldeException, NoTieneEnergiaException;
 	
 	
 	/**

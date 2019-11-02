@@ -16,9 +16,13 @@ public class Soldado extends Personaje implements Bebible{
  * metodo atacar
  * @param Personaje otro personaje
  * inflinge dato a otro personaje y descuenta la energia del soldado en 10
+ * @throws FueraRangoException 
+ * @throws PersonajeMuertoNoAtacaException 
+ * @throws NoTieneEnergiaException 
+ * @throws PersonajeAtacadoMuertoException 
  * **/
 	@Override
-	public void atacar(Personaje otroPersonaje) {
+	public void atacar(Personaje otroPersonaje) throws PersonajeAtacadoMuertoException, NoTieneEnergiaException, PersonajeMuertoNoAtacaException, FueraRangoException {
 		if(this.puedeAtacar(otroPersonaje)) {
 			otroPersonaje.recibirAtaque(this);
 			this.energia-=10;
@@ -41,34 +45,38 @@ public class Soldado extends Personaje implements Bebible{
 	 * @param Personaje otroPersonaje
 	 * @return si puedeAtacar es true o false
 	 * manejo de excepsiones para saber si puede o no puede atacar
+	 * @throws PersonajeAtacadoMuertoException 
+	 * @throws NoTieneEnergiaException 
+	 * @throws PersonajeMuertoNoAtacaException 
+	 * @throws FueraRangoException 
 	 *
 	 **/
 	@Override
-	public boolean puedeAtacar(Personaje otroPersonaje) {
-		boolean puedeAtacar=true;
-		try {
+	public boolean puedeAtacar(Personaje otroPersonaje) throws PersonajeAtacadoMuertoException, NoTieneEnergiaException, PersonajeMuertoNoAtacaException, FueraRangoException {
+		boolean puedeAtacar=false;
+	
 			if (otroPersonaje.estaVivo()==false) {
-				throw new MiException(001);
+				throw new PersonajeAtacadoMuertoException("El personaje a atacar esta muerto");
 				
 			}
-			if (this.energia<0) {
-				throw new MiException (006);
+			else if (this.energia<0) {
+				throw new NoTieneEnergiaException ("No posee energia suficiente para atacar, puede tomar posion");
 				
 			}
-			if (this.estaVivo()==false) {
-				throw new MiException (005);
+			else if (this.estaVivo()==false) {
+				throw new PersonajeMuertoNoAtacaException ("Un personaje muerto ya no puede atacar");
 				
 			}
-			if (this.distancia(otroPersonaje)!=Soldado.distanciaAtaque) {
-				throw new MiException (002);
+			else if (this.distancia(otroPersonaje)!=Soldado.distanciaAtaque) {
+				throw new FueraRangoException ("El personaje a atacar esta fuera de rango");
 				
+			}
+			else {
+				puedeAtacar=true;
 			}
 			
-		}
-		catch (MiException fail) {
-			System.out.println(fail.getMensaje());
-			puedeAtacar=false;
-		}
+		
+	
 			return puedeAtacar; 
 	}
 	/**
